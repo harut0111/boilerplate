@@ -1,6 +1,11 @@
-import React, {useEffect} from "react";
 import API from "../api";
-import {IQuote} from "../types/Global";
+
+export default async function fetchQuote() {
+    const response = await API.getQuote();
+    const result = await response.json();
+    if(result.result === "ok") return result.assets;
+    else console.log('error of fetchQuote')
+}
 
 // export default function fetchQuotes() {
 //     const [loading, setLoading] = React.useState<boolean>(true);
@@ -25,11 +30,3 @@ import {IQuote} from "../types/Global";
 //         handleQuoteFavoriteChange
 //     }
 // }
-
-
-export default async function fetchQuote() {
-    const response = await API.getQuote();
-    const result = await response.json();
-    if(result.result === "ok") return result.assets;
-    else console.log('error of fetchQuote')
-}
