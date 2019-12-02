@@ -5,5 +5,4 @@ export default async function checkAuth(email:string, password: string) {
     const auth = await response.json();
     if(auth.result === "ok") return true;
     return false;
-
 };

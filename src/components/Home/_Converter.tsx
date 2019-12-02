@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useRef, SyntheticEvent} from 'react'
-import { useQuote } from '../../hooks/useQuote';
 import { useStateValue } from '../../context';
 
 const Converter = () => {

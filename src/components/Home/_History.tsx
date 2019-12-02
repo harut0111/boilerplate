@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import {useHistory} from "../../hooks/useHistory";
 import Loader from "../Loader";
 import moment from 'moment';
+import fetchHistory from '../../middleware/fetchHistory';
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from 'react-icons/io'
 import {HISTORY_TABLE_HEADERS} from "../../configs/constants";
 import {IHistory} from "../../types/Global";
-import fetchHistory from '../../middleware/fetchHistory';
 import { useStateValue } from '../../context';
 import { loading, historyToState } from '../../context/actions';
 
 
 const History = () => {
-    // const { history, availablePageCount } = useHistory();
+    
     const [ pageStart, setPageStart ] = useState<number>(0);
     const [ currentPage, setCurrentPage ] = useState<number>(1);
 
@@ -24,11 +23,10 @@ const History = () => {
         dispatchHistory(historyToState(historyVal))
         dispatchLoading(loading(false));
     }
-    
-    console.log('history', history);
 
     useEffect(() => {
         getHistory()
+        //eslint-disable-next-line
     }, [])
 
 
@@ -67,7 +65,7 @@ const History = () => {
 
     return (
         <div className='home-history'>
-            {/* <table>
+            <table>
                 {renderModalHeader()}
                 {renderTableBody()}
             </table>
@@ -77,14 +75,13 @@ const History = () => {
                     onClick={() => handlePaginate()}>
                     <IoIosArrowRoundBack size="30px" color={currentPage < 2 ? "gray": "#1a237e"} />
                 </button>
-                {currentPage}
-                /{availablePageCount}
+                {currentPage}/{10}
                 <button
-                    disabled={currentPage >= availablePageCount}
+                    disabled={currentPage >= 10}
                     onClick={() => handlePaginate(true)}>
-                    <IoIosArrowRoundForward size="30px" color={currentPage >= availablePageCount ? "gray": "#1a237e"} />
+                    <IoIosArrowRoundForward size="30px" color={currentPage >= 10 ? "gray": "#1a237e"} />
                 </button>
-            </div> */}
+            </div>
         </div>
     )
 }

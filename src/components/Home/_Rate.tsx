@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import fetchQuotes from '../../middleware/fetchQuotes';
 import moment from "moment";
-import {FaStar} from "react-icons/fa";
+import Loader from '../Loader';
 import { useStateValue } from '../../context';
 import { quotesToState, loading } from '../../context/actions';
-import Loader from '../Loader';
 
 const Rate = () => {
 
@@ -21,12 +20,10 @@ const Rate = () => {
     
     useEffect(() => {
         getQuotes()
+        //eslint-disable-next-line
     }, [])
 
-    if(isLoading) return (
-        <Loader />
-    )
-
+    if(isLoading) return <Loader />;
     return (
         <div className='home-rate'>
             <table>
@@ -41,17 +38,7 @@ const Rate = () => {
                 {
                     quotes.map((quote: any, index: number) => (
                         <tr key={index}>
-                            <td>
-                                <div className='home-rate-asset'>
-                                    <span>
-                                        <FaStar
-                                            // onClick={() => handleQuoteFavoriteChange(index)}
-                                            style={{color: !quote.isFavorite ?  "gray": "#1a237e", cursor: "pointer"}}
-                                        />
-                                    </span>
-                                    <span>{quote.asset}</span>
-                                </div>
-                            </td>
+                            <td>{quote.asset}</td>
                             <td>{quote.quote}</td>
                             <td>{moment(quote.startDate).format("hh:mm DD.MM.YY")}</td>
                         </tr>
@@ -63,4 +50,4 @@ const Rate = () => {
     )
 };
 
-export default Rate
+export default Rate;
