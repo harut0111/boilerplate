@@ -44,4 +44,4 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-![](context-api.png);
+![context-api](context-api.png =250x250);
