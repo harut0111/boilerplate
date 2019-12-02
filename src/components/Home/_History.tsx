@@ -1,15 +1,35 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useHistory} from "../../hooks/useHistory";
 import Loader from "../Loader";
 import moment from 'moment';
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from 'react-icons/io'
 import {HISTORY_TABLE_HEADERS} from "../../configs/constants";
 import {IHistory} from "../../types/Global";
+import fetchHistory from '../../middleware/fetchHistory';
+import { useStateValue } from '../../context';
+import { loading, historyToState } from '../../context/actions';
+
 
 const History = () => {
-    const { history, loading, availablePageCount } = useHistory();
+    // const { history, availablePageCount } = useHistory();
     const [ pageStart, setPageStart ] = useState<number>(0);
     const [ currentPage, setCurrentPage ] = useState<number>(1);
+
+    const [{ isLoading }, dispatchLoading]: any = useStateValue();
+    const [{ history }, dispatchHistory]: any = useStateValue();
+
+    const getHistory = async () => {
+        dispatchLoading(loading(true));
+        const historyVal =  await fetchHistory();
+        dispatchHistory(historyToState(historyVal))
+        dispatchLoading(loading(false));
+    }
+    
+    console.log('history', history);
+
+    useEffect(() => {
+        getHistory()
+    }, [])
 
 
     const handlePaginate = (isNext?: boolean): void => {
@@ -43,13 +63,11 @@ const History = () => {
         </tbody>
     };
 
-    if(loading){
-        return <Loader/>
-    }
+    if(isLoading) return <Loader/>;
 
     return (
         <div className='home-history'>
-            <table>
+            {/* <table>
                 {renderModalHeader()}
                 {renderTableBody()}
             </table>
@@ -66,7 +84,7 @@ const History = () => {
                     onClick={() => handlePaginate(true)}>
                     <IoIosArrowRoundForward size="30px" color={currentPage >= availablePageCount ? "gray": "#1a237e"} />
                 </button>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -5,10 +5,9 @@ import History from './_History'
 import {NAVBAR_LIST} from "../../configs/constants";
 
 
-const _Main = () => {
+const Main = () => {
 
     const [activeIndex, setActiveIndex] = useState<number>(0);
-
     const dataList = [Rate, Converter, History];
 
     return (
@@ -37,4 +36,4 @@ const _Main = () => {
     )
 }
 
-export default _Main;
+export default Main;

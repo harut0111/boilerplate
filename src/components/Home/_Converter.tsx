@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef, SyntheticEvent} from 'react'
 import { useQuote } from '../../hooks/useQuote';
+import { useStateValue } from '../../context';
 
 const Converter = () => {
 
-    const { quotes } = useQuote();
+    const [{quotes}]: any = useStateValue();
 
     const [from, setFrom] = useState<string>('');
     const [to, setTo ] = useState<string>('');
@@ -34,7 +35,7 @@ const Converter = () => {
 
     useEffect(() => {
         let uniqueQuotes: string[] = [];
-        const mixQuotes: string[] = quotes.map(item => item.asset);
+        const mixQuotes: string[] = quotes.map((item: { asset: string; }) => item.asset);
         mixQuotes.forEach(item => uniqueQuotes.push( item.split('/')[0], item.split('/')[1] ))
         uniqueQuotes = Array.from(new Set(uniqueQuotes).values());
         setQuoteList(uniqueQuotes);

@@ -6,21 +6,20 @@ export function useHistory() {
     const [loading, setLoading] = React.useState<boolean>(true);
     const [history, setHistory] = React.useState<IHistory[]>([]);
     const [availablePageCount, setPageCount] = React.useState<number>(0);
-    useEffect(
-        () => {
-            async function fetchHistory(): Promise<any> {
-                const response = await API.getHistory();
-                const result = await response.json();
-                if(result.result === "ok"){
-                    setHistory(result.deals);
-                    setLoading(false);
-                    setPageCount(result.deals.length / 10);
-                }
-            }
-            fetchHistory();
-        },
-        []
-    )
+
+    async function fetchHistory(): Promise<any> {
+        const response = await API.getHistory();
+        const result = await response.json();
+        if(result.result === "ok"){
+            setHistory(result.deals);
+            setLoading(false);
+            setPageCount(result.deals.length / 10);
+        }
+    }
+
+    useEffect(() => {
+        fetchHistory()
+    },[])
 
     return {
         loading,

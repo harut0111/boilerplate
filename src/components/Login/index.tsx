@@ -1,17 +1,23 @@
 import React, { FormEvent, useRef, useState, SyntheticEvent } from 'react'
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useStateValue } from "../../context";
-import API from "../../api";
-import { loginSuccess } from "../../context/actions";
-import {HOME_PATH, IS_LOGGED_IN} from "../../configs/constants";
-import {ILoginProps} from "../../types/Components";
+import { loginSucceeded, loading, loginFail } from "../../context/actions";
+import { HOME_PATH } from "../../configs/constants";
+import { ILoginProps } from "../../types/Components";
+import checkAuth from '../../middleware/checkAuth';
+import Loader from '../Loader';
 
-const Login = ({history}: ILoginProps) => {
+
+
+
+const Login = ({ history }: ILoginProps) => {
 
     // eslint-disable-next-line
-    const [{ isLoading }, dispatch]: any = useStateValue();
+    const [{ isLoggedIn }, dispatchAuth]: any = useStateValue();
+    const [{ isLoading }, dispatchLoading]: any = useStateValue();
+
     const [errorEmail, setErrorEmail] = useState<string>('');
-    const [errorPassword, seterrorPassword] = useState<string>('');
+    const [errorPassword, setErrorPassword] = useState<string>('');
     const [requestError, setRequestError] = useState('');
 
     const emailEl = useRef(null);
@@ -20,32 +26,35 @@ const Login = ({history}: ILoginProps) => {
 
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const emailVal = emailEl.current.value;
-        const passwordVal = passwordEl.current.value;
+        const emailVal: string = emailEl.current.value;
+        const passwordVal: string = passwordEl.current.value;
 
-
-        const response = await API.signIn(emailVal, passwordVal);
-        const signIn = await response.json();
-
-        if (signIn.result === 'ok') {
-            dispatch(loginSuccess);
-            localStorage.setItem(IS_LOGGED_IN, String(true));
+        dispatchLoading(loading(true));
+        const auth = await checkAuth(emailVal, passwordVal);
+        if (auth) {
+            dispatchAuth(loginSucceeded());
             history.push(HOME_PATH)
-        } else {
+        }
+        else {
+            dispatchAuth(loginFail());
+
             setRequestError('Неверный логин или пароль');
-            seterrorPassword('');
+            setErrorPassword('');
             setErrorEmail('');
             passwordEl.current.style.borderColor = '#1a237e';
             emailEl.current.style.borderColor = '#1a237e';
         }
+
+        dispatchLoading(loading(false));
     }
+
 
     const handleEmailValidation = (e: SyntheticEvent) => {
         e.preventDefault();
         emailEl.current.style.borderColor = 'red'
         passwordEl.current.style.borderColor = '#1a237e';
         emailEl.current.value ? setErrorEmail('Неверный логин') : setErrorEmail('требуется е-мейл')
-        seterrorPassword('');
+        setErrorPassword('');
         setRequestError('');
     }
 
@@ -54,10 +63,14 @@ const Login = ({history}: ILoginProps) => {
         e.preventDefault();
         emailEl.current.style.borderColor = '#1a237e';
         passwordEl.current.style.borderColor = 'red';
-        passwordEl.current.value ? seterrorPassword('Неверный пароль') : seterrorPassword('требуется пароль')
+        passwordEl.current.value ? setErrorPassword('Неверный пароль') : setErrorPassword('требуется пароль')
         setErrorEmail('');
         setRequestError('');
     }
+
+    if (isLoading) return (
+        <Loader />
+    )
 
 
 

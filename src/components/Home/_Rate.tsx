@@ -1,10 +1,31 @@
-import React from 'react'
-import {useQuote} from "../../hooks/useQuote";
+import React, { useEffect } from 'react'
+import fetchQuotes from '../../middleware/fetchQuotes';
 import moment from "moment";
 import {FaStar} from "react-icons/fa";
+import { useStateValue } from '../../context';
+import { quotesToState, loading } from '../../context/actions';
+import Loader from '../Loader';
 
 const Rate = () => {
-    const { quotes, handleQuoteFavoriteChange } = useQuote();
+
+    const [{quotes}, dispatchQuotes]: any = useStateValue();
+    const [{ isLoading }, dispatchLoading]: any = useStateValue();
+    
+    const getQuotes = async () => {
+        dispatchLoading(loading(true));
+        const quotesVal = await fetchQuotes();
+        dispatchQuotes(quotesToState(quotesVal));
+        dispatchLoading(loading(false));
+    }
+
+    
+    useEffect(() => {
+        getQuotes()
+    }, [])
+
+    if(isLoading) return (
+        <Loader />
+    )
 
     return (
         <div className='home-rate'>
@@ -18,13 +39,13 @@ const Rate = () => {
                 </thead>
                 <tbody>
                 {
-                    quotes.map((quote, index) => (
+                    quotes.map((quote: any, index: number) => (
                         <tr key={index}>
                             <td>
                                 <div className='home-rate-asset'>
                                     <span>
                                         <FaStar
-                                            onClick={() => handleQuoteFavoriteChange(index)}
+                                            // onClick={() => handleQuoteFavoriteChange(index)}
                                             style={{color: !quote.isFavorite ?  "gray": "#1a237e", cursor: "pointer"}}
                                         />
                                     </span>

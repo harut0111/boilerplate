@@ -11,17 +11,18 @@ export function useQuote() {
         quoteCopy[quoteIndex].isFavorite = !quoteCopy[quoteIndex].isFavorite;
         setQuotes(quoteCopy.sort( (x: IQuote, y: IQuote) => (Number(y.isFavorite) - Number(x.isFavorite))));
     };
-    useEffect(
-        () => {
-            async function fetchQuote() {
-                const response = await API.getQuote();
-                const result = await response.json();
-                if(result.result === "ok"){
-                    setQuotes(result.assets.map( (q: IQuote) => ({...q, isFavorite: false})));
-                    setLoading(false);
-                }
-            }
-            fetchQuote();
+
+    async function fetchQuote() {
+        const response = await API.getQuote();
+        const result = await response.json();
+        if(result.result === "ok"){
+            setQuotes(result.assets.map( (q: IQuote) => ({...q, isFavorite: false})));
+            setLoading(false);
+        }
+    }
+    
+    useEffect(() => {
+        fetchQuote();
     },[])
 
     return {
