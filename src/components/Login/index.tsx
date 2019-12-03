@@ -38,7 +38,6 @@ const Login = ({ history }: ILoginProps) => {
         }
         else {
             dispatchAuth(loginFail());
-
             setRequestError('Неверный логин или пароль');
             setErrorPassword('');
             setErrorEmail('');

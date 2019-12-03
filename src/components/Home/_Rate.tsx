@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import fetchQuotes from '../../middleware/fetchQuotes';
 import moment from "moment";
 import Loader from '../Loader';
@@ -10,18 +10,18 @@ const Rate = () => {
     const [{quotes}, dispatchQuotes]: any = useStateValue();
     const [{ isLoading }, dispatchLoading]: any = useStateValue();
     
-    const getQuotes = async () => {
+   const getQuotes = async () => {
         dispatchLoading(loading(true));
         const quotesVal = await fetchQuotes();
         dispatchQuotes(quotesToState(quotesVal));
         dispatchLoading(loading(false));
     }
 
+    const memorizedQuotes = useCallback(getQuotes, []);
     
     useEffect(() => {
-        getQuotes()
-        //eslint-disable-next-line
-    }, [])
+        memorizedQuotes()
+    }, [memorizedQuotes])
 
     if(isLoading) return <Loader />;
     return (

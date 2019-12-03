@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import Loader from "../Loader";
 import moment from 'moment';
 import fetchHistory from '../../middleware/fetchHistory';
@@ -24,10 +24,11 @@ const History = () => {
         dispatchLoading(loading(false));
     }
 
+    const memorizedHistory = useCallback(getHistory, [])
+
     useEffect(() => {
-        getHistory()
-        //eslint-disable-next-line
-    }, [])
+        memorizedHistory()
+    }, [memorizedHistory])
 
 
     const handlePaginate = (isNext?: boolean): void => {
