@@ -2,7 +2,7 @@ import React, { FormEvent, useRef, useState, SyntheticEvent } from 'react'
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useStateValue } from "../../context";
 import { loginSucceeded, loading, loginFail } from "../../context/actions";
-import { HOME_PATH } from "../../configs/constants";
+import { HOME_PATH, IS_LOGGED_IN } from "../../configs/constants";
 import { ILoginProps } from "../../types/Components";
 import checkAuth from '../../middleware/checkAuth';
 import Loader from '../Loader';
@@ -33,7 +33,8 @@ const Login = ({ history }: ILoginProps) => {
         const auth = await checkAuth(emailVal, passwordVal);
         if (auth) {
             dispatchAuth(loginSucceeded());
-            history.push(HOME_PATH)
+            history.push(HOME_PATH);
+            localStorage.setItem(IS_LOGGED_IN, 'true');
         }
         else {
             dispatchAuth(loginFail());

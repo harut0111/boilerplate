@@ -11,7 +11,7 @@ export const initialState = {
 };
 
 export const reducer = (state: State, { type, payload }: Action) => {
-    console.log('reducer called', type);
+
     switch (type) {
         case LOADING: {
             return {...state, isLoading: payload}
