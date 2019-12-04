@@ -95,6 +95,7 @@ const Login = ({ history }: ILoginProps) => {
               ref={passwordEl}
               onInvalid={handlePasswordValidation}
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}"
+              autoComplete={''}
             />
             <label className="login-main-error">{errorPassword}</label>
           </div>
