@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
-import fetchQuotes from '../../middleware/fetchQuotes';
+import fetchQuotes from '../../fetch/fetchQuotes';
 import moment from "moment";
 import Loader from '../Loader';
 import { useStateValue } from '../../context';

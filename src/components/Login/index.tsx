@@ -4,7 +4,7 @@ import { useStateValue } from "../../context";
 import { loginSucceeded, loading, loginFail } from "../../context/actions";
 import { HOME_PATH, IS_LOGGED_IN } from "../../configs/constants";
 import { ILoginProps } from "../../types/Components";
-import checkAuth from '../../middleware/checkAuth';
+import checkAuth from '../../fetch/fetchAuth';
 import Loader from '../Loader';
 
 

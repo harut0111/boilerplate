@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import Loader from "../Loader";
 import moment from 'moment';
-import fetchHistory from '../../middleware/fetchHistory';
+import fetchHistory from '../../fetch/fetchHistory';
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from 'react-icons/io'
 import {HISTORY_TABLE_HEADERS} from "../../configs/constants";
 import {IHistory} from "../../types/Global";
