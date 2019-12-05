@@ -32,7 +32,7 @@ const Login = ({ history }: ILoginProps) => {
       localStorage.setItem(IS_LOGGED_IN, "true");
     } else {
       dispatchAuth(loginFail());
-      setRequestError("Неверный логин или пароль");
+      setRequestError("Wrong login or password");
       setErrorPassword("");
       setErrorEmail("");
       passwordEl.current.style.borderColor = "#1a237e";
@@ -47,8 +47,8 @@ const Login = ({ history }: ILoginProps) => {
     emailEl.current.style.borderColor = "red";
     passwordEl.current.style.borderColor = "#1a237e";
     emailEl.current.value
-      ? setErrorEmail("Неверный логин")
-      : setErrorEmail("требуется е-мейл");
+      ? setErrorEmail("Invalid login")
+      : setErrorEmail("Email required");
     setErrorPassword("");
     setRequestError("");
   };
@@ -58,8 +58,8 @@ const Login = ({ history }: ILoginProps) => {
     emailEl.current.style.borderColor = "#1a237e";
     passwordEl.current.style.borderColor = "red";
     passwordEl.current.value
-      ? setErrorPassword("Неверный пароль")
-      : setErrorPassword("требуется пароль");
+      ? setErrorPassword("Invalid password")
+      : setErrorPassword("password required");
     setErrorEmail("");
     setRequestError("");
   };
@@ -68,11 +68,11 @@ const Login = ({ history }: ILoginProps) => {
 
   return (
     <div className="login">
-      <div className="login-header">Вход в личный кабинет</div>
+      <div className="login-header">Login to your account</div>
       <div className="login-main">
         <form onSubmit={handleSubmit}>
           <div className="login-main-email">
-            <label htmlFor="email">Логин</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               placeholder="Enter Email"
@@ -85,7 +85,7 @@ const Login = ({ history }: ILoginProps) => {
             <label className="login-main-error">{errorEmail}</label>
           </div>
           <div className="login-main-password">
-            <label htmlFor="password">Пароль</label>
+            <label htmlFor="password">Password</label>
             <input
               defaultValue={"TestPassword123_"}
               type="password"
@@ -95,13 +95,13 @@ const Login = ({ history }: ILoginProps) => {
               ref={passwordEl}
               onInvalid={handlePasswordValidation}
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}"
-              autoComplete={''}
+              autoComplete={""}
             />
             <label className="login-main-error">{errorPassword}</label>
           </div>
           <button type="submit">
             {" "}
-            Вход <FaLongArrowAltRight />
+            Login <FaLongArrowAltRight />
           </button>
         </form>
         <p>{requestError}</p>

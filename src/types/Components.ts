@@ -1,3 +1,3 @@
 export interface ILoginProps {
-    history: any;
+  history: any;
 }
