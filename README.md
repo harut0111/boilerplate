@@ -1,4 +1,4 @@
-## Redux to react state
+## Redux to React state
 
 ![redux-to-react-state.gif](/public/redux-to-react-state.gif);
 
