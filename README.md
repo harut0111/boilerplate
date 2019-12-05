@@ -1,4 +1,4 @@
-![context-api](/public/context-api.png);
+![context-api](/public/redux to react state.gif);
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
