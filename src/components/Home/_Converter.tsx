@@ -4,11 +4,11 @@ import { useStateValue } from "../../context";
 const Converter = () => {
   const [{ quotes }]: any = useStateValue();
 
-  const [from, setFrom] = useState<string>("");
-  const [to, setTo] = useState<string>("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [quoteList, setQuoteList] = useState<string[]>([]);
-  const [amount, setAmount] = useState<number>(1);
-  const [quoteVal, setQuoteVal] = useState<number>(1);
+  const [amount, setAmount] = useState(1);
+  const [quoteVal, setQuoteVal] = useState(1);
 
   const amountnEl = useRef(null);
 
