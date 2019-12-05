@@ -64,7 +64,7 @@ const Converter = () => {
       <table>
         <thead>
           <tr>
-            <th>Конвертация валют</th>
+            <th>Currency conversion</th>
           </tr>
         </thead>
       </table>
@@ -85,15 +85,15 @@ const Converter = () => {
           >
             {options2}
           </select>
-          <button type="submit">Рассчитать</button>
+          <button type="submit">Calculate</button>
         </form>
         <div className="home-convertor-result">
-          <span>Итого</span>
+          <span>Total</span>
           <span>
             {quoteVal ? (
               amount * quoteVal
             ) : (
-              <span style={{ color: "red" }}>котировка не доступна</span>
+              <span style={{ color: "red" }}>quote is not available</span>
             )}
           </span>
         </div>

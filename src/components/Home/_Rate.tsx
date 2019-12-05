@@ -28,9 +28,9 @@ const Rate = () => {
       <table>
         <thead>
           <tr>
-            <th>Валютная пара </th>
-            <th>Котировка</th>
-            <th>Дата получения</th>
+            <th>Currency pair</th>
+            <th>Quotation</th>
+            <th>Date of receiving</th>
           </tr>
         </thead>
         <tbody>

@@ -9,7 +9,7 @@ const Header = () => {
         to={LOGIN_PATH}
         onClick={() => localStorage.removeItem(IS_LOGGED_IN)}
       >
-        Выход
+        Exit
       </Link>
     </div>
   );
