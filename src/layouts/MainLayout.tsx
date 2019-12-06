@@ -5,7 +5,7 @@ import { withRouter } from "react-router";
 
 const MainLayout = ({ children }: any) => {
   const history = useHistory();
-  const memorizedCallBack = useCallback(() => {
+  const memoizedCallBack = useCallback(() => {
     if (localStorage.getItem(IS_LOGGED_IN)) {
       history.push(HOME_PATH);
     } else {
@@ -14,8 +14,8 @@ const MainLayout = ({ children }: any) => {
   }, [history]);
 
   useEffect(() => {
-    memorizedCallBack();
-  }, [memorizedCallBack]);
+    memoizedCallBack();
+  }, [memoizedCallBack]);
 
   return <div className="App">{children}</div>;
 };

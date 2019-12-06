@@ -16,11 +16,11 @@ const Rate = () => {
     dispatchLoading(loading(false));
   };
 
-  const memorizedQuotes = useCallback(getQuotes, []);
+  const memoizedQuotes = useCallback(getQuotes, []);
 
   useEffect(() => {
-    memorizedQuotes();
-  }, [memorizedQuotes]);
+    memoizedQuotes();
+  }, [memoizedQuotes]);
 
   if (isLoading) return <Loader />;
   return (

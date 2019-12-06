@@ -22,11 +22,11 @@ const History = () => {
     dispatchLoading(loading(false));
   };
 
-  const memorizedHistory = useCallback(getHistory, []);
+  const memoizedHistory = useCallback(getHistory, []);
 
   useEffect(() => {
-    memorizedHistory();
-  }, [memorizedHistory]);
+    memoizedHistory();
+  }, [memoizedHistory]);
 
   const handlePaginate = (isNext?: boolean): void => {
     setCurrentPage(isNext ? currentPage + 1 : currentPage - 1);

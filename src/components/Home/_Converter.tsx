@@ -10,12 +10,12 @@ const Converter = () => {
   const [amount, setAmount] = useState(1);
   const [quoteVal, setQuoteVal] = useState(1);
 
-  const amountnEl = useRef(null);
+  const amountRef = useRef(null);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    setAmount(amountnEl.current.value);
+    setAmount(amountRef.current.value);
 
     if (from === to) setQuoteVal(1);
     else {
@@ -70,7 +70,7 @@ const Converter = () => {
       </table>
       <div className="home-convertor-content">
         <form onSubmit={handleSubmit}>
-          <input type="number" defaultValue={1} ref={amountnEl} />
+          <input type="number" defaultValue={1} ref={amountRef} />
           <select
             className="listquotes"
             value={from}
